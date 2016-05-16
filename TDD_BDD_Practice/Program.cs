@@ -10,6 +10,9 @@ namespace TDD_BDD_Practice
     {
         static void Main(string[] args)
         {
+            var num = Calculator<int>.Add(5, 10);
+            Console.WriteLine(num);
+            Console.ReadLine();
         }
     }
 }
