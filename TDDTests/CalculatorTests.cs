@@ -7,6 +7,8 @@ namespace TDDTests
     [TestClass]
     public class CalculatorTests
     {
+        
+
         [TestMethod]
         public void AddTwoIntegers()
         {
