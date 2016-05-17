@@ -19,15 +19,21 @@ namespace TDDTests
         private decimal _unitPrice;
         private string _partNumber;
         private decimal _itemTotalPrice;
+        private int _newItemQuantity;
+        private decimal _discountAmount;
+        private decimal _largeDiscountAmount;
 
         [TestInitialize]
         public void Setup()
         {
             _qty = 2;
             _desc = "Cart Item";
-            _unitPrice = 55m;
+            _unitPrice = 50m;
             _partNumber = "ABC9923";
-            _itemTotalPrice = 110m;
+            _itemTotalPrice = 100m;
+            _newItemQuantity = 5;
+            _discountAmount = 10m;
+            _largeDiscountAmount = 150m;
             _item = new CartItem(_qty, _desc, _unitPrice, _partNumber);
         }
 
@@ -66,9 +72,26 @@ namespace TDDTests
         [TestMethod]
         public void CartItemChangeQuantity()
         {
-            _item.Quantity = 5;
+            _item.Quantity = _newItemQuantity;
 
             Assert.AreEqual(5, _item.Quantity);
+        }
+
+        [TestMethod]
+        public void CartItemApplyDiscount()
+        {
+            _item.ApplyDiscount(_discountAmount);
+
+            Assert.AreEqual(_item.Discount, _discountAmount);
+        }
+
+
+        [TestMethod]
+        public void CartItemPriceCannotBeLessThanZero()
+        {
+            _item.ApplyDiscount(_largeDiscountAmount);
+
+            Assert.AreEqual(_item.GetItemTotalPrice(), 0m );
         }
     }
 
@@ -77,9 +100,12 @@ namespace TDDTests
        public int Quantity { get; set; }
        public string Description   { get; private set; }
 
-        public decimal UnitPrice { get; private set; } 
+        public decimal UnitPrice { get; private set; }  
 
         public string PartNumber { get; private set; }
+
+        public decimal Discount { get; set; } 
+ 
 
         public CartItem(int quantity, string description, decimal unitprice, string partnumber)
         {
@@ -91,7 +117,19 @@ namespace TDDTests
 
         public decimal GetItemTotalPrice()
         {
-            return Quantity*UnitPrice;
+            var TotalPrice = Quantity*UnitPrice - Discount;
+
+            if (TotalPrice <= 0m)
+            {
+                return 0m;
+            }
+
+            return TotalPrice;
+        }
+
+        public void ApplyDiscount(decimal discount)
+        {
+            this.Discount = discount;
         }
     }
 }
