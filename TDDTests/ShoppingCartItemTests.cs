@@ -62,11 +62,19 @@ namespace TDDTests
 
             Assert.AreEqual(actual, _itemTotalPrice);
         }
+
+        [TestMethod]
+        public void CartItemChangeQuantity()
+        {
+            _item.Quantity = 5;
+
+            Assert.AreEqual(5, _item.Quantity);
+        }
     }
 
     internal class CartItem
     {
-       public int Quantity { get; private set; }
+       public int Quantity { get; set; }
        public string Description   { get; private set; }
 
         public decimal UnitPrice { get; private set; } 
