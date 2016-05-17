@@ -23,7 +23,7 @@ namespace TDDTests
             _qty = 2;
             _desc = "Cart Item";
             _unitPrice = 55m;
-            _item = new CartItem(-_qty, _desc, _unitPrice);
+            _item = new CartItem(_qty, _desc, _unitPrice);
         }
 
         [TestMethod]
@@ -37,7 +37,12 @@ namespace TDDTests
         {
             Assert.AreEqual(_desc, _item.Description);
         }
- 
+
+        [TestMethod]
+        public void CartItemUnitPrice()
+        {
+            Assert.AreEqual(_unitPrice, _item.UnitPrice);
+        }
     }
 
     internal class CartItem
