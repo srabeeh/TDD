@@ -9,14 +9,48 @@ using ShoppingCart;
 namespace TDDTests
 {
     [TestClass]
-    class CartTests
+    public class CartTests
     {
+        private Cart _cart;
+        private CartItem _cartItem;
+
+        [TestInitialize]
+        public void Setup()
+        {
+            _cart = new Cart();
+            _cartItem = new CartItem(2, "test", 5m, "XYZ1234");
+        }
+
         [TestMethod]
         public void CartCanContainZeroItems()
         {
-            var cart = new Cart();
+            Assert.AreEqual(_cart.Items.Count, 0);
+        }
 
-            Assert.AreEqual(cart.Items.Count, 0);
+        [TestMethod]
+        public void CartCanContainsAddedItem()
+        {
+            _cart.AddItem(_cartItem);
+
+            Assert.IsTrue(_cart.Items.Contains(_cartItem));
+        }
+
+        [TestMethod]
+        public void CartCanContaisNoDuplicateItems()
+        {
+            _cart.AddItem(_cartItem);
+            _cart.AddItem(_cartItem);
+
+            Assert.IsTrue(_cart.Items.Count < 2);
+        }
+
+        [TestMethod]
+        public void CartCanRemoveItems()
+        {
+            _cart.AddItem(_cartItem);
+            _cart.RemoveItem(_cartItem);
+
+            Assert.IsTrue(_cart.Items.Count == 0);
         }
     }
 
@@ -26,7 +60,20 @@ namespace TDDTests
 
         public Cart()
         {
+            Items = new List<CartItem>();
+        }
 
+        public void AddItem(CartItem item)
+        {
+            if (!Items.Contains(item))
+            {
+                Items.Add(item); 
+            }
+        }
+
+        public void RemoveItem(CartItem item)
+        {
+            Items.Remove(item);
         }
     }
 }
