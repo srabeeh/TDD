@@ -1,0 +1,14 @@
+﻿ACME Corp Shopping cart requirements
+
+
+1. The cart can contain zero or more line items.
+2. Each line item has a unit price, description, part number and quantity and total cost qty * unit price
+3. The cart should sum all line items before taxes
+4. The cart should calculate the sum taxes on all line items.
+5. The cart should calculate the total sum and taxes
+6. The quantity of the cart items can be modified
+7. Discounts can be applied to cart items
+8. Cart item price including discount must not be less than zero
+9. Carts must be persisted in a database with a unique cart_id
+10. Cart exceptions should return zero
+11. Cart exceptions should be saved in the database or log
