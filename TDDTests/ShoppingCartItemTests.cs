@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Runtime.Remoting;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,8 @@ namespace TDDTests
         private string _desc;
         private CartItem _item;
         private decimal _unitPrice;
+        private string _partNumber;
+        private decimal _itemTotalPrice;
 
         [TestInitialize]
         public void Setup()
@@ -23,7 +26,9 @@ namespace TDDTests
             _qty = 2;
             _desc = "Cart Item";
             _unitPrice = 55m;
-            _item = new CartItem(_qty, _desc, _unitPrice);
+            _partNumber = "ABC9923";
+            _itemTotalPrice = 110m;
+            _item = new CartItem(_qty, _desc, _unitPrice, _partNumber);
         }
 
         [TestMethod]
@@ -43,6 +48,20 @@ namespace TDDTests
         {
             Assert.AreEqual(_unitPrice, _item.UnitPrice);
         }
+
+        [TestMethod]
+        public void CartItemPartNumber()
+        {
+            Assert.AreEqual(_partNumber, _item.PartNumber);
+        }
+
+        [TestMethod]
+        public void CartItemPriceIsQuantityTimesUnitPrice()
+        {
+            var actual = _item.GetItemTotalPrice();
+
+            Assert.AreEqual(actual, _itemTotalPrice);
+        }
     }
 
     internal class CartItem
@@ -50,14 +69,21 @@ namespace TDDTests
        public int Quantity { get; private set; }
        public string Description   { get; private set; }
 
-        public decimal UnitPrice { get; set; } 
+        public decimal UnitPrice { get; private set; } 
 
-        public CartItem(int quantity, string description, decimal unitprice)
+        public string PartNumber { get; private set; }
+
+        public CartItem(int quantity, string description, decimal unitprice, string partnumber)
         {
             this.Quantity = quantity;
             this.Description = description;
             this.UnitPrice = unitprice;
+            this.PartNumber = partnumber;
         }
 
+        public decimal GetItemTotalPrice()
+        {
+            return Quantity*UnitPrice;
+        }
     }
 }
