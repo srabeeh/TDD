@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="CalculatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShoppingCartItemTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TDD_BDD_Practice\TDD_BDD_Practice.csproj">
@@ -77,6 +78,7 @@
     <Content Include="Data\CalcData.sdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ShoppingCareRequirements.txt" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
