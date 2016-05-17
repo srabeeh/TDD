@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Runtime.Remoting;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ShoppingCart;
 
 namespace TDDTests
 {
@@ -92,44 +86,6 @@ namespace TDDTests
             _item.ApplyDiscount(_largeDiscountAmount);
 
             Assert.AreEqual(_item.GetItemTotalPrice(), 0m );
-        }
-    }
-
-    internal class CartItem
-    {
-       public int Quantity { get; set; }
-       public string Description   { get; private set; }
-
-        public decimal UnitPrice { get; private set; }  
-
-        public string PartNumber { get; private set; }
-
-        public decimal Discount { get; set; } 
- 
-
-        public CartItem(int quantity, string description, decimal unitprice, string partnumber)
-        {
-            this.Quantity = quantity;
-            this.Description = description;
-            this.UnitPrice = unitprice;
-            this.PartNumber = partnumber;
-        }
-
-        public decimal GetItemTotalPrice()
-        {
-            var TotalPrice = Quantity*UnitPrice - Discount;
-
-            if (TotalPrice <= 0m)
-            {
-                return 0m;
-            }
-
-            return TotalPrice;
-        }
-
-        public void ApplyDiscount(decimal discount)
-        {
-            this.Discount = discount;
         }
     }
 }

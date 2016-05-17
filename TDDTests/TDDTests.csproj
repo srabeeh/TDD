@@ -63,6 +63,10 @@
     <Compile Include="ShoppingCartItemTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ShoppingCart\ShoppingCart.csproj">
+      <Project>{e32283dc-4989-494e-b8fd-69d8c4339cc9}</Project>
+      <Name>ShoppingCart</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TDD_BDD_Practice\TDD_BDD_Practice.csproj">
       <Project>{41ffd60d-7ef4-4ade-8aad-a5834823015f}</Project>
       <Name>TDD_BDD_Practice</Name>
